@@ -19,7 +19,7 @@ namespace PosKata.Tests
         private IFixture _fixture;
 
         [SetUp]
-        public void RunBeforeEachTest()
+        public virtual void RunBeforeEachTest()
         {
             _fixture = new Fixture();
             _fixture.Customize(new AutoMoqCustomization());

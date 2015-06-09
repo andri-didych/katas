@@ -9,12 +9,17 @@ namespace PosKata
         void Scan(string code);
 
         decimal CalculateTotal();
+
+        void ApplyDiscount(DiscountCard discount);
+
+        void CloseSale();
     }
 
     public class PointOfSaleTerminal : IPointOfSaleTerminal
     {
         private IDictionary<string, int> _cart;
         private ICartItemBuilder _cartItemBuilder;
+        private DiscountCard _discount = DiscountCard.None;
 
         public PointOfSaleTerminal(ICartItemBuilder cartItemBuilder)
         {
@@ -46,7 +51,20 @@ namespace PosKata
         public decimal CalculateTotal()
         {
             var cart = new Cart(BuildCartItems());
+            cart.SetDiscount(_discount.Discout);
             return cart.GetPrice();
+        }
+
+        public void ApplyDiscount(DiscountCard discount)
+        {
+            _discount = discount;
+        }
+
+        public void CloseSale()
+        {
+            var cart = new Cart(BuildCartItems());
+            cart.SetDiscount(_discount.Discout);
+            _discount.AddBalance(cart.GetFullPrice());
         }
 
         private IList<ICartItem> BuildCartItems()

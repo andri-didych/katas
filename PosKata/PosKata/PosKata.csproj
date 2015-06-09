@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Cart.cs" />
     <Compile Include="CartItem.cs" />
+    <Compile Include="DiscountCard.cs" />
     <Compile Include="PointOfSaleTerminal.cs" />
     <Compile Include="Price.cs" />
     <Compile Include="CartItemBuilder.cs" />
