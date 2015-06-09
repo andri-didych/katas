@@ -42,7 +42,7 @@
     <Compile Include="CartItem.cs" />
     <Compile Include="PointOfSaleTerminal.cs" />
     <Compile Include="Price.cs" />
-    <Compile Include="PriceProcessor.cs" />
+    <Compile Include="CartItemBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

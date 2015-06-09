@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace PosKata.Tests
 {
-    public class PriceProcessorTests : TestFor<PriceProcessor>
+    public class CartItemBuilderTests : TestFor<CartItemBuilder>
     {
         [Test]
         public void CanHaveDiscount_ShouldReturnFalse_WhenOnlyUnitPriceAvaildalbe()

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PosKata
 {
-    public interface IPriceProcessor
+    public interface ICartItemBuilder
     {
         bool CanHaveDiscount(string code);
 
@@ -12,12 +12,12 @@ namespace PosKata
         ICartItem GetItem(string code, int count);
     }
 
-    public class PriceProcessor : IPriceProcessor
+    public class CartItemBuilder : ICartItemBuilder
     {
         private readonly IDictionary<string, UnitPrice> _prices;
         private readonly IDictionary<string, BundlePrice> _discounts;
 
-        public PriceProcessor(IList<UnitPrice> prices, IList<BundlePrice> discounts = null)
+        public CartItemBuilder(IList<UnitPrice> prices, IList<BundlePrice> discounts = null)
         {
             _prices = prices.ToDictionary(o => o.Code, o => o);
             _discounts = discounts == null ? new Dictionary<string, BundlePrice>() : discounts.ToDictionary(o => o.Code, o => o);

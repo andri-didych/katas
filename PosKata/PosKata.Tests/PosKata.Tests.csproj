@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PriceProcessorTests.cs" />
+    <Compile Include="CartItemBuilderTests.cs" />
     <Compile Include="TestFor.cs" />
     <Compile Include="PointOfSaleTerminalIntegrationTests.cs" />
     <Compile Include="PointOfSaleTerminalTests.cs" />

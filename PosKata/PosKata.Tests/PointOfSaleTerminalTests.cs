@@ -11,7 +11,7 @@ namespace PosKata.Tests
 
         public void CalculateTotal_ShouldCallGetItem_For1Item()
         {
-            var mock = GetMock<IPriceProcessor>();
+            var mock = GetMock<ICartItemBuilder>();
             mock.Setup(o => o.CanHaveDiscount(It.IsAny<string>()))
                 .Returns(false);
 
@@ -26,7 +26,7 @@ namespace PosKata.Tests
 
         public void CalculateTotal_ShouldCallGetItemsWithDiscount_For2Items()
         {
-            var mock = GetMock<IPriceProcessor>();
+            var mock = GetMock<ICartItemBuilder>();
             mock.Setup(o => o.CanHaveDiscount(It.IsAny<string>()))
                 .Returns(true);
 
@@ -42,7 +42,7 @@ namespace PosKata.Tests
 
         public void CalculateTotal_ShouldCallGetItemAndGetItemsWithDiscount_ForDifferentItems()
         {
-            var mock = GetMock<IPriceProcessor>();
+            var mock = GetMock<ICartItemBuilder>();
             mock.Setup(o => o.CanHaveDiscount(It.Is<string>(s => s == "A")))
                 .Returns(true);
             mock.Setup(o => o.CanHaveDiscount(It.Is<string>(s => s == "B")))

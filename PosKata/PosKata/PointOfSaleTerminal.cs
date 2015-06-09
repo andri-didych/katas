@@ -15,12 +15,12 @@ namespace PosKata
     public class PointOfSaleTerminal : IPointOfSaleTerminal
     {
         private IDictionary<string, int> _cart;
-        private IPriceProcessor _priceProcessor;
+        private ICartItemBuilder _cartItemBuilder;
 
-        public PointOfSaleTerminal(IPriceProcessor priceProcessor)
+        public PointOfSaleTerminal(ICartItemBuilder cartItemBuilder)
         {
             _cart = new Dictionary<string, int>();
-            _priceProcessor = priceProcessor;
+            _cartItemBuilder = cartItemBuilder;
         }
 
         public PointOfSaleTerminal(IList<UnitPrice> prices, IList<BundlePrice> bundles = null)
@@ -31,7 +31,7 @@ namespace PosKata
         public void SetPricing(IList<UnitPrice> prices, IList<BundlePrice> bundles = null)
         {
             _cart = new Dictionary<string, int>();
-            _priceProcessor = new PriceProcessor(prices, bundles);
+            _cartItemBuilder = new CartItemBuilder(prices, bundles);
         }
 
         public void Scan(string code)
@@ -50,13 +50,13 @@ namespace PosKata
 
             foreach (var i in _cart.Keys)
             {
-                if (_priceProcessor.CanHaveDiscount(i))
+                if (_cartItemBuilder.CanHaveDiscount(i))
                 {
-                    items.AddRange(_priceProcessor.GetItemsWithDiscount(i, _cart[i]));
+                    items.AddRange(_cartItemBuilder.GetItemsWithDiscount(i, _cart[i]));
                 }
                 else
                 {
-                    items.Add(_priceProcessor.GetItem(i, _cart[i]));
+                    items.Add(_cartItemBuilder.GetItem(i, _cart[i]));
                 }
             }
 
