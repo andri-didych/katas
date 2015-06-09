@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace PosKata
 {
@@ -46,6 +45,12 @@ namespace PosKata
 
         public decimal CalculateTotal()
         {
+            var cart = new Cart(BuildCartItems());
+            return cart.GetPrice();
+        }
+
+        private IList<ICartItem> BuildCartItems()
+        {
             var items = new List<ICartItem>();
 
             foreach (var i in _cart.Keys)
@@ -59,8 +64,7 @@ namespace PosKata
                     items.Add(_cartItemBuilder.BuildItem(i, _cart[i]));
                 }
             }
-
-            return items.Sum(o => o.Count * o.Price);
+            return items;
         }
     }
 }

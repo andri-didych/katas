@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CartItemBuilderTests.cs" />
+    <Compile Include="CartTests.cs" />
     <Compile Include="TestFor.cs" />
     <Compile Include="PointOfSaleTerminalIntegrationTests.cs" />
     <Compile Include="PointOfSaleTerminalTests.cs" />
