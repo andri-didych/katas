@@ -50,13 +50,13 @@ namespace PosKata
 
             foreach (var i in _cart.Keys)
             {
-                if (_cartItemBuilder.CanHaveDiscount(i))
+                if (_cartItemBuilder.IsSpecial(i))
                 {
-                    items.AddRange(_cartItemBuilder.GetItemsWithDiscount(i, _cart[i]));
+                    items.AddRange(_cartItemBuilder.BuidlSpecialItems(i, _cart[i]));
                 }
                 else
                 {
-                    items.Add(_cartItemBuilder.GetItem(i, _cart[i]));
+                    items.Add(_cartItemBuilder.BuildItem(i, _cart[i]));
                 }
             }
 

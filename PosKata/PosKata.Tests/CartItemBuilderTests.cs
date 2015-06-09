@@ -7,54 +7,54 @@ namespace PosKata.Tests
     public class CartItemBuilderTests : TestFor<CartItemBuilder>
     {
         [Test]
-        public void CanHaveDiscount_ShouldReturnFalse_WhenOnlyUnitPriceAvaildalbe()
+        public void IsSpecial_ShouldReturnFalse_WhenOnlyUnitPriceAvaildalbe()
         {
             Inject(new List<UnitPrice> { new UnitPrice("A", 1.00m) });
 
-            Assert.IsFalse(Sut.CanHaveDiscount("A"));
+            Assert.IsFalse(Sut.IsSpecial("A"));
         }
 
         [Test]
-        public void GetItem_ShouldReturnCartItem()
+        public void BuildItem_ShouldReturnCartItem()
         {
             Inject(new List<UnitPrice> { new UnitPrice("A", 7.77m) });
 
-            var result = Sut.GetItem("A", 5);
+            var result = Sut.BuildItem("A", 5);
             Assert.AreEqual(5, result.Count);
             Assert.AreEqual(7.77m, result.Price);
         }
 
         [Test]
-        public void GetItemsWithDiscount_ShouldReturnCartItems_WhenNotEnoughForBundle()
+        public void BuidlSpecialItems_ShouldReturnCartItems_WhenNotEnoughForBundle()
         {
             Inject(new List<UnitPrice> { new UnitPrice("A", 1.00m) });
             Inject(new List<BundlePrice> { new BundlePrice("A", 3.00m, 4) });
 
-            var results = Sut.GetItemsWithDiscount("A", 3).ToList();
+            var results = Sut.BuidlSpecialItems("A", 3).ToList();
 
             Assert.AreEqual(1, results.Count);
             Assert.True(results.Any(o => o.Price == 1.00m && o.Count == 3));
         }
 
         [Test]
-        public void GetItemsWithDiscount_ShouldReturnCartItemsInBundle_WhenEnoughForBundle()
+        public void BuidlSpecialItems_ShouldReturnCartItemsInBundle_WhenEnoughForBundle()
         {
             Inject(new List<UnitPrice> { new UnitPrice("A", 1.00m) });
             Inject(new List<BundlePrice> { new BundlePrice("A", 3.00m, 4) });
 
-            var results = Sut.GetItemsWithDiscount("A", 4).ToList();
+            var results = Sut.BuidlSpecialItems("A", 4).ToList();
 
             Assert.AreEqual(1, results.Count);
             Assert.True(results.Any(o => o.Price == 3.00m && o.Count == 1));
         }
 
         [Test]
-        public void GetItemsWithDiscount_ShouldReturnCartItemsAndBundles_WhenMoreThanBundle()
+        public void BuidlSpecialItems_ShouldReturnCartItemsAndBundles_WhenMoreThanBundle()
         {
             Inject(new List<UnitPrice> { new UnitPrice("A", 1.00m) });
             Inject(new List<BundlePrice> { new BundlePrice("A", 3.00m, 4) });
 
-            var results = Sut.GetItemsWithDiscount("A", 11).ToList();
+            var results = Sut.BuidlSpecialItems("A", 11).ToList();
 
             Assert.AreEqual(2, results.Count);
             Assert.True(results.Any(o => o.Price == 3.00m && o.Count == 2));
@@ -62,11 +62,11 @@ namespace PosKata.Tests
         }
 
         [Test]
-        public void CanHaveDiscount_ShouldReturnFalse_WhenBundlePriceAvaildalbe()
+        public void IsSpecial_ShouldReturnFalse_WhenBundlePriceAvaildalbe()
         {
             Inject(new List<BundlePrice> { new BundlePrice("A", 1.00m, 5) });
 
-            Assert.IsTrue(Sut.CanHaveDiscount("A"));
+            Assert.IsTrue(Sut.IsSpecial("A"));
         }
     }
 }

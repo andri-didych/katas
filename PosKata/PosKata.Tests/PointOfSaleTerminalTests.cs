@@ -12,14 +12,14 @@ namespace PosKata.Tests
         public void CalculateTotal_ShouldCallGetItem_For1Item()
         {
             var mock = GetMock<ICartItemBuilder>();
-            mock.Setup(o => o.CanHaveDiscount(It.IsAny<string>()))
+            mock.Setup(o => o.IsSpecial(It.IsAny<string>()))
                 .Returns(false);
 
             Sut.Scan("A");
             Sut.CalculateTotal();
 
-            mock.Verify(o => o.GetItem("A", 1));
-            mock.Verify(o => o.GetItemsWithDiscount(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            mock.Verify(o => o.BuildItem("A", 1));
+            mock.Verify(o => o.BuidlSpecialItems(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
         }
 
         [Test]
@@ -27,15 +27,15 @@ namespace PosKata.Tests
         public void CalculateTotal_ShouldCallGetItemsWithDiscount_For2Items()
         {
             var mock = GetMock<ICartItemBuilder>();
-            mock.Setup(o => o.CanHaveDiscount(It.IsAny<string>()))
+            mock.Setup(o => o.IsSpecial(It.IsAny<string>()))
                 .Returns(true);
 
             Sut.Scan("A");
             Sut.Scan("A");
             Sut.CalculateTotal();
 
-            mock.Verify(o => o.GetItemsWithDiscount("A", 2));
-            mock.Verify(o => o.GetItem(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
+            mock.Verify(o => o.BuidlSpecialItems("A", 2));
+            mock.Verify(o => o.BuildItem(It.IsAny<string>(), It.IsAny<int>()), Times.Never);
         }
 
         [Test]
@@ -43,9 +43,9 @@ namespace PosKata.Tests
         public void CalculateTotal_ShouldCallGetItemAndGetItemsWithDiscount_ForDifferentItems()
         {
             var mock = GetMock<ICartItemBuilder>();
-            mock.Setup(o => o.CanHaveDiscount(It.Is<string>(s => s == "A")))
+            mock.Setup(o => o.IsSpecial(It.Is<string>(s => s == "A")))
                 .Returns(true);
-            mock.Setup(o => o.CanHaveDiscount(It.Is<string>(s => s == "B")))
+            mock.Setup(o => o.IsSpecial(It.Is<string>(s => s == "B")))
               .Returns(false);
 
             Sut.Scan("A");
@@ -53,8 +53,8 @@ namespace PosKata.Tests
             Sut.Scan("A");
             Sut.CalculateTotal();
 
-            mock.Verify(o => o.GetItemsWithDiscount("A", 2));
-            mock.Verify(o => o.GetItem("B", 1));
+            mock.Verify(o => o.BuidlSpecialItems("A", 2));
+            mock.Verify(o => o.BuildItem("B", 1));
         }
 
         [Test]

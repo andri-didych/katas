@@ -5,11 +5,11 @@ namespace PosKata
 {
     public interface ICartItemBuilder
     {
-        bool CanHaveDiscount(string code);
+        bool IsSpecial(string code);
 
-        IEnumerable<ICartItem> GetItemsWithDiscount(string code, int count);
+        IEnumerable<ICartItem> BuidlSpecialItems(string code, int count);
 
-        ICartItem GetItem(string code, int count);
+        ICartItem BuildItem(string code, int count);
     }
 
     public class CartItemBuilder : ICartItemBuilder
@@ -23,12 +23,12 @@ namespace PosKata
             _discounts = discounts == null ? new Dictionary<string, BundlePrice>() : discounts.ToDictionary(o => o.Code, o => o);
         }
 
-        public bool CanHaveDiscount(string code)
+        public bool IsSpecial(string code)
         {
             return _discounts.ContainsKey(code);
         }
 
-        public IEnumerable<ICartItem> GetItemsWithDiscount(string code, int count)
+        public IEnumerable<ICartItem> BuidlSpecialItems(string code, int count)
         {
             var discountPrice = _discounts[code];
             var discountCount = count / discountPrice.Rule;
@@ -52,7 +52,7 @@ namespace PosKata
             }
         }
 
-        public ICartItem GetItem(string code, int count)
+        public ICartItem BuildItem(string code, int count)
         {
             return new CartItem
             {
