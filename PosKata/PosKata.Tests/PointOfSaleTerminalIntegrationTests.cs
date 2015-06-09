@@ -28,8 +28,8 @@ namespace PosKata.Tests
         {
             var discounts = new List<BundlePrice>
             {
-                new BundlePrice("A", 3.00m, rule: 3),
-                new BundlePrice("C", 5.00m, rule: 6)
+                new BundlePrice("A", 3.00m, size: 3),
+                new BundlePrice("C", 5.00m, size: 6)
             };
 
             var prices = new List<UnitPrice>

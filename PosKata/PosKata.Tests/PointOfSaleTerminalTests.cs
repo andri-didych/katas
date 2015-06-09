@@ -8,7 +8,6 @@ namespace PosKata.Tests
     public class PointOfSaleTerminalTests : TestFor<PointOfSaleTerminal>
     {
         [Test]
-
         public void CalculateTotal_ShouldCallGetItem_For1Item()
         {
             var mock = GetMock<ICartItemBuilder>();
@@ -23,7 +22,6 @@ namespace PosKata.Tests
         }
 
         [Test]
-
         public void CalculateTotal_ShouldCallGetItemsWithDiscount_For2Items()
         {
             var mock = GetMock<ICartItemBuilder>();
@@ -39,7 +37,6 @@ namespace PosKata.Tests
         }
 
         [Test]
-
         public void CalculateTotal_ShouldCallGetItemAndGetItemsWithDiscount_ForDifferentItems()
         {
             var mock = GetMock<ICartItemBuilder>();
@@ -58,7 +55,7 @@ namespace PosKata.Tests
         }
 
         [Test]
-        public void SetPrising_ShouldResetCart()
+        public void SetPricing_ShouldResetCart()
         {
             Sut.SetPricing(Get<List<UnitPrice>>());
 

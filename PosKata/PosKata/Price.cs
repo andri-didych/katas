@@ -22,14 +22,14 @@
 
     public class BundlePrice : IPrice
     {
-        public BundlePrice(string code, decimal price, int rule)
+        public BundlePrice(string code, decimal price, int size)
         {
             Code = code;
             Price = price;
-            Rule = rule;
+            Size = size;
         }
 
-        public int Rule { get; private set; }
+        public int Size { get; private set; }
 
         public string Code { get; private set; }
 
